@@ -6,7 +6,7 @@
 - Install a project dependency using npm
 - Import code from a package into a JavaScript file
 
-## Overview
+## Introduction
 
 When using npm, it is often the case that we aren't familiar with _all_ of the
 code in the dependency tree. Building modern JavaScript applications relies on
@@ -21,12 +21,12 @@ node packages _we_ specifically need to get our app working**. We don't need to
 worry about what packages _those_ packages need. Why? Because every node package
 includes a `package.json` file that lists out all dependencies. This file lets
 Node know what to download when we run `npm install`. Node will download all the
-packages, check the `package.json` files present, then download any additional
-packages, and repeat.
+packages, check the `package.json` files present in each of those packages,
+download any additional packages, and repeat.
 
 We will see in future labs that as the number of packages increases, more and
 more happens when we run `npm install`. All _we_ need to worry about, though, is
-the top-level - what is listed in _our_ application's `package.json` file.
+the top level — what is listed in _our_ application's `package.json` file.
 
 In this code-along, we are going to practice the process of setting up a
 `package.json` file. We will also install an npm package or two and use their
@@ -34,7 +34,7 @@ functionality in new code we write.
 
 ## Getting Started
 
-Before we can create a `package.json` file, we'll need an project and a project
+Before we can create a `package.json` file, we'll need a project and a project
 folder to contain all the files. For this code-along, we'll be building out a
 clock application that changes color every second.
 
@@ -48,10 +48,10 @@ contains some basic starter files for a project. If you look at
 
 Taking a look inside `index.js`, we can see that this script relies on a unique
 function call, `format(new Date(), "MMMM do yyyy, h:mm:ss a")`. We're also
-**importing** that function from a `node_modules` folder from a date formatting
-library called `date-fns`. Our goal is to get this code working. **We do not need
-to change `index.js`**. Instead, we will need to set up a `package.json` file
-and install the [`date-fns`][date-fns] package.
+**importing** that function from a `node_modules` folder that contains a date
+formatting library called `date-fns`. Our goal is to get this code working. **We
+do not need to change `index.js`**. Instead, we will need to set up a
+`package.json` file and install the [`date-fns`][date-fns] package.
 
 ## Navigate to the Project Directory
 
@@ -69,21 +69,22 @@ typing the command `cd color-clock`.
 The `package.json` can be written quickly from scratch, but we actually have a
 handy command for creating these files: `npm init`.
 
-Run `npm init` and you will be prompted to confirm the information that will
-be stored in `package.json`, starting with the name of the project.
+Run `npm init` and you will be prompted to confirm the information that will be
+stored in `package.json`, starting with the name of the project.
 
 Most prompts will provide a default value. Some are blank and can be left this
-way for now. Follow the prompts until the end and a fully constructed
-`package.json` file will appear in the `color-clock` directory.
+way for now. Follow the prompts by pressing enter in the terminal on each prompt
+until you reach the end, when you will be prompted to type 'yes' to confirm. A
+fully constructed `package.json` file will then appear in the `color-clock`
+directory.
 
 ### Add a Script
 
-In the process of creating the `package.json` file, you were prompted to
-write a test script. Let's add a working script in to see how this works.
+In the process of creating the `package.json` file, you were prompted to write a
+test script. Let's add a working script in to see how this works.
 
-Open the newly created `package.json` file and look for a section
-titled `"scripts"`. Let's replace the default `"test"` script with
-an shell command:
+Open the newly created `package.json` file and look for a section titled
+`"scripts"`. Let's replace the default `"test"` script with a shell command:
 
 ```json
 "scripts": {
@@ -113,40 +114,40 @@ process, like a local server.
 
 ### Install a Package
 
-With `package.json` set up, we can now add a package we want to include
-in our project.
+With `package.json` set up, we can now add a package we want to include in our
+project.
 
-Now, we're building a colorful clock &mdash; the project is simple enough that
-we _could_ build it entirely out of custom code. Here's the thing though &mdash;
-one of the reasons packages exist and are so useful is because programmers often
-run into the same problems over and over. Node packages are written so we don't
-have to re-find a solution other programmers have found.
+Now, we're building a colorful clock — the project is simple enough that we
+_could_ build it entirely out of custom code. Here's the thing though: one of
+the reasons packages exist and are so useful is because programmers often run
+into the same problems over and over. Node packages are written so we don't have
+to re-find a solution other programmers have found.
 
 In the case of a colorful clock, we have to deal with formatting time. This is
 such a common problem, that a package has been created to help us:
 [`date-fns`][date-fns]. `date-fns` is a handy package that comes with a number
 of functions that make displaying dates and times simpler than trying to figure
-out JavaScripts built-in functions.
+out JavaScript's built-in functions.
 
-Let's install `date-fns` and incorporate into our clock. To install a package
+Let's install `date-fns` and incorporate it into our clock. To install a package
 and save it to your `package.json` file, run `npm install` followed by the
 package name. In our case, that would be:
 
-```bash
-npm install date-fns
+```console
+$ npm install date-fns
 ```
 
 This command will add the package to the list of dependencies in `package.json`.
 When `npm install` is run, all dependencies are installed. If you were to
 publish this repository on GitHub, other users would now be able to clone down
-the repo and install whatever is listed in `pakage.json` to get the program
+the repo and install whatever is listed in `package.json` to get the program
 working.
 
-We'll also need one more package to run our application in the browser. Run
-this command:
+We'll also need one more package to run our application in the browser. Run this
+command:
 
-```sh
-npm install serve
+```console
+$ npm install serve
 ```
 
 This [`serve`](https://www.npmjs.com/package/serve) package will run a
@@ -155,25 +156,24 @@ lightweight server. We can set up another npm script to run the server using the
 
 ```json
 "scripts": {
+  "test": "echo 'Hello World!'",
   "start": "serve"
 }
 ```
 
 Run `npm start` to run this script, and open up
-[localhost:5000](http://localhost:5000) in the browser.
+[localhost:3000](http://localhost:3000) in the browser.
 
 If `package.json` file has the correct package, and the node module has been
 installed, you should see a colorful clock appear!
 
 ## Conclusion
 
-We've departed from the shore and are now afloat on the sea of code. When
-building our own applications, we will often rely on existing packages to handle
-specific pieces of a project.
-
-Although we only installed one package in this lab, there are many layers of
-dependencies for them, and many of additional dependencies were installed. It
-isn't necessary to understand _how_ each of these works. The main thing to grasp
-is how to implement and use the specific dependencies you need.
+When building our own applications, we will often rely on existing packages to
+handle specific pieces of a project. Although we only installed a couple of
+packages for this code-along, there were additional layers of dependencies for
+them so many additional dependencies were installed as well. It isn't necessary
+to understand _how_ each of these works. The main thing to grasp is how to
+implement and use the specific dependencies you need.
 
 [date-fns]: (https://date-fns.org/)
